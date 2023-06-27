@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    const sending = async (data) => {
+        console.log(data)
+        let options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({ img: data })
+        }
+        const result = await fetch("/encode", options)
+        const resp = await result.json();
+        console.log(resp);
+    }
+
+    const fun = () => {
+
+        const file = document.getElementById("file");
+        console.log(file.files[0])
+        if (file.files[0]) {
+            const formData = new FormData()
+            formData.append('myFile', file.files[0])
+            
+            formData.append('regId',"6444f6e292af81783fbc1264")
+
+            fetch('/takeattendance', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+
+
+
+        }
+
+
+
+
+
+
+    }
+
+</script>
+
+<body>
+
+    <input type="file" id="file"></input>
+    <button onclick="fun()">click</button>
+
+</body>
+
+</html>
